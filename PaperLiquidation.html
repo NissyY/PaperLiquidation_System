@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<title>Paper</title>
+		<meta charset="utf-8">
+
+		<!-- タグのプラグイン -->
+		<link rel="stylesheet" href="tagify-style.css" />
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="main.css">
+
+		<!-- BootstrapのCSS読み込み -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+		<script type="text/javascript" src="library/jquery-1.12.4.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+		<script src="library/jquery.tagify.js"></script>
+		<script src="library/d3.min.js"></script>
+		<script src="library/venn.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<!-- <script src="lastfm.jsonp"></script> -->
+		<script src="comic.json"></script>
+		<!-- <script src="data.json"></script> -->
+		<script src="js/addForm.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/vennCreate.js"></script>
+
+	</head>
+	<body>
+		<!-- 左側 -->
+		<div id="vennArea" class="col-md-7">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					D3.js
+				</div>
+				<div id="venn" class="center-block">
+				    <div id="tooltip" class="hidden">
+						<p name="label"></p>
+					</div>
+				</div>
+	        </div>
+		</div>
+
+		<!-- 右側 -->
+		<div id="paperDetailArea" class="col-md-5 ">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Detailed Information
+				</div>
+				<div id="detailArea">
+					<!-- ボタン -->
+					<form id="btnForm" class="form-inline" role="form">
+					    <button type="button" id="addData" class="btn btn-default">
+					        <span class="glyphicon glyphicon-plus">追加
+					    </button>
+					    <button type="button" id="showTheme" class="btn btn-default">テーマ</button>
+					    <button type="button" id="showPaper" class="btn btn-default">論文</button>
+					</form>
+
+					<!-- 詳細情報提示 -->
+					<div id="themeInformationArea" ></div>
+					<div id="paperInformationArea" style="display: none;"></div>
+
+					<!-- 論文データ追加フォーム -->
+					<div id="form-main" style="display: none;">
+						<div id="form-div">
+				    		<form class="form" id="addPaperInformation">  
+						    	<div class="inoutPaperTitle">
+						        	<input id="title" name="title" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Title"/>
+						    	</div>
+						    	<div class="inoutPaperAuthor">
+						        	<input id="author" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Author" />
+						    	</div>
+						    	<!-- タグ付け -->
+						    	<div class="inoutPaperTheme">
+						        	<textarea id="tagme" name="tags" type="text" class="validate[required,custom[tags]] feedback-input" placeholder="Theme"></textarea>
+						    	</div>
+								<div class="inputComment">
+						        	<textarea id="comment" name="comment" class="validate[required,length[6,300]] feedback-input" placeholder="Comment"></textarea>
+						    	</div>
+						    	
+						    	<div id="btn" class="row">
+							    	<div id="addBtn" class="submit col-xs-8 col-sm-6">
+						    			<input type="button" value="ADD" id="button-blue"/>
+										<div class="ease"></div>
+									</div>
+									<div id="exitBtn" class="submit col-xs-8 col-sm-6">
+						    			<input type="button" value="EXIT" id="button-blue"/>
+										<div class="ease"></div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>
