@@ -1,0 +1,40 @@
+{
+    "papers": [
+          {
+               "title":"多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー",
+               "author":["小平 優衣", "鈴木 啓史", "三原 徹也", "永森 光晴", "杉本 重雄"],
+               "theme":"LOD",
+               "date":"2013",
+               "society":"情報処理学会研究報告",
+               "comment":"",
+               "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
+          },
+          {
+               "title":"Linked Open Dataを利用したマンガへのアクセス支援 –メタデータによるマンガ情報の可視化– ",
+               "author":["岩間 勇介", "三原 鉄也", "永森 光晴", "杉本 重雄"],
+               "theme":"LOD",
+               "date":"2013",
+               "society":"情報処理学会第75回全国大会",
+               "comment":"",
+               "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
+          },
+          {
+               "title":"マンガにおける表現技法の進化 –何がマンガを文芸に成長させたのか– ",
+               "author":["高月 義照"],
+               "theme":"コミックの表現技法の利用",
+               "date":"",
+               "society":"",
+               "comment":"",
+               "link":""
+          },
+          {
+               "title":"マンガ表現を利用したコンテキストアウェアアプリケーション",
+               "author":["角 康之", "松村 耕平"],
+               "theme":"コミックの表現技法の利用",
+               "date":"",
+               "society":"",
+               "comment":"",
+               "link":""
+          }
+     ]
+}

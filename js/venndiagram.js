@@ -1,15 +1,14 @@
-$(function(){
+function VennDiagram(themes) {
     var chart = venn.VennDiagram()
                      .width(500)
                      .height(600);
 
-    var div = d3.select("#venn")
-    div.datum(sets).call(chart);
-
-    var tooltip;
-    tooltip = d3.select("body")
+    var tooltip = d3.select("body")
         .append("div")
         .attr("class", "venntooltip");
+
+    var div = d3.select("#venn")
+    div.datum(themes).call(chart);
 
     div.select("svg")
         .attr("class","center-block");
@@ -37,17 +36,15 @@ $(function(){
                 .css('left', event.pageX  + 'px')
                 .css('top', event.pageY + 'px');
 
-            $('[name="label"]').text(d.size + "users");
+            $('[name="label"]').text(d.label + "users");
 
             $('#tooltip').removeClass('hidden');
         })
-
         .on("mousemove", function() {
             $('#tooltip')
                 .css('left', (event.pageX + 10) + 'px')
                 .css('top', (event.pageY + 10) + 'px');
         })
-
         .on("mouseout", function(d, i) {
             tooltip.transition().duration(400).style("opacity", 0);
             var selection = d3.select(this).transition("tooltip").duration(400);
@@ -57,31 +54,57 @@ $(function(){
 
                 $('#tooltip').addClass('hidden');
         })
-
         .on("click",function(d, i) {
             console.log(d);
-            // var titleText = d.title[0];
-            var paperTitle = dataObjectOfTitleToText(d);
-            
-            var aLength =  paperTitle.length;
-            for(var i = 0; i < aLength; i ++){
-                console.log(paperTitle[i]);
-                $('#themeInformationArea').append(
-                    $('<a></a>').text(paperTitle[i])
-                );
-            }
-            
-
         });
 
+    $('#addPaper').click(function() {
+        var spans = $('div[class="tagify-container"] span');
+        var spanLength = spans.length;
+        var tags = transformInputtedTagTextToTexts(spanLength, spans);
 
-        //関数
-        function dataObjectOfTitleToText(objectData){
-            var dataLength = objectData.title.length;
-            var titleText = [];
-            for(var i = 0; i < dataLength; i++){
-                titleText[i] = objectData.title[i];
+        for(var i = 0; i < spanLength; i++){
+            if (NotIsIdentifier(i, tags, spanLength)) {
+                // 被っている場合
+                alert("同じタグが設定されています");
+                clearTagData();     
+                return;
             }
-            return titleText;
+
+            upSizeVenn(tags);
+            addNewVenn(tags);
+
+            //TODO: なんでおるかわからんけど，とりあえずおいとく(動作OK)
+            var res = createPaperDataSetJsonFile(tags[i]);
         }
-});
+
+        // これ呼べば更新される．(themesの中身に変更があった場合のみ)
+        div.datum(themes).call(chart);
+    });
+
+//追加されたタグと既存タグが重複していればデータ数を増やす
+    function upSizeVenn(tags) {
+        themes.forEach(function(v, i, a) {
+            if (tags.indexOf(v.label) >= 0) {
+                a[i].size += 1;
+            }
+        });
+    }
+
+    function addNewVenn(tags) {
+        var labels = [];
+        themes.forEach(function(v, i, a) {
+            labels.push(v.label);
+        });
+
+        tags.forEach(function(v, i, a) {
+            if (!(labels.indexOf(v) >= 0)) {
+                themes.push({
+                    "sets": [themes.length],
+                    "label": v,
+                    "size": 1
+                });
+            }
+        });
+    }
+}

@@ -1,5 +1,5 @@
 var sets = [
-     {"sets": [0], "label": "Radiohead", "size": 773480},
+     {"sets": [0], "label": "Radiohead", "size": 77348},
      {"sets": [1], "label": "Thom Yorke", "size": 5621},
      {"sets": [2], "label": "John Lennon", "size": 7773},
      {"sets": [3], "label": "Kanye West", "size": 27053},
