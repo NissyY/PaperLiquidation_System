@@ -7,7 +7,6 @@ function readJsonFile(filename) {
 		});
 
 		$request.done(function(data, textStatus) {
-			console.log(textStatus);
 			resolve(data);
 		});
 

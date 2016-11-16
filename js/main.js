@@ -11,7 +11,7 @@ $(function() {
 
 		Promise.all(loadFiles).then(function(files) {
 			// すべてのファイルがロードできた場合
-			VennDiagram(files[0]['themes']);
+			VennDiagram(files[0]['themes'], files[1]['papers']);//filesってなに？？
 		}, onRejected);		
 	}
 
@@ -41,13 +41,13 @@ $(function() {
 
     // ここから下はうまく整理して
 
-	$("#showTheme").click(function(){
+	$("#showThemeBtn").click(function(){
 		$(this).addClass("disabled");
-		$("#showPaper").removeClass("disabled");
+		$('#showPaperBtn').removeClass("disabled");
 	});
 
-	$("#showPaper").click(function(){
+	$("#showPaperBtn").click(function(){
 		$(this).addClass("disabled");
-		$("#showTheme").removeClass("disabled");
+		$('#showThemeBtn').removeClass("disabled");
 	});
 });

@@ -22,42 +22,20 @@ function transformInputtedTagTextToTexts(len, tags) {
     return res;
 }
 
+function removeSpanOfTag(){
+    $('span[style="display: none;"]').remove();
+}
+
 //jsonパース
-function createPaperDataSetJsonFile(tagName){
-    var metadata = JSON.stringify(
-        {
+function createPaperDataSetJsonFile(papers){
+    papers.push({
             "title":$("#title").val(),
             "author":$("#author").val(),
-            "theme":tagName,
+            // "theme":tagName,
             "date":$("#date").val(),
             "society":$("#society").val(),
             "comment":$("#comment").val(),
             "link":""
-        }
-    );
-    var tmp = JSON.parse(metadata);
-    // paperDataSet.push(tmp); //TODO: グローバル参照
-    return tmp;
+    });
+    console.log(papers);
 }
-
-// function createThemeJsonFile(tag, len){
-//     var metadata = JSON.stringify(
-//     {
-//         "sets":[len + 1], //TODO: themes.lengthをlenの引数として渡すこと
-//         "label": tag, 
-//         "size": 1
-//     });
-
-//     var tmp = JSON.parse(metadata);
-//     return tmp;
-// }
-
-// function dataObjectOfTitleToText(objectData){
-//     var dataLength = objectData.title.length;
-//     var titleText = [];
-//     for(var i = 0; i < dataLength; i++){
-//         titleText[i] = objectData.title[i];
-//     }
-//     return titleText;
-// }
-
