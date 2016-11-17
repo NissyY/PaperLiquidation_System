@@ -5,14 +5,25 @@ function clearTagData(tags){
 }
 
 //addフォームに入力したタグが重複していないかの確認
-function NotIsIdentifier(target, tags, len) {
-    for(var i = target + 1; i < len; i++){
-        if(tags[target] == tags[i]){
-            return true;
+// function NotIsIdentifier(target, tags, len) {
+//     for(var i = target + 1; i < len; i++){
+//         if(tags[target] == tags[i]){
+//             return true;
+//         }
+//     }
+//     return false;
+// }
+function NotIsIdentifier(tags, len) {
+    for(var i = 0; i < len - 1; i++){
+        for(var j = i + 1; j < len; j ++){
+            if(tags[i] == tags[j]){
+               return true;
+            }
         }
     }
     return false;
 }
+
 
 function checkDataOfTitleOverlap(papers, title, len){
     for(var i = 0; i < len; i ++){

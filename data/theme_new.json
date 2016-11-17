@@ -1,14 +1,14 @@
 {
      "themes": [
-          {"sets": [0],"label": "LOD","size": 2},
-          {"sets": [1],"label": "コミックの表現技法の利用","size": 16},
-          {"sets": [2],"label": "コミック質問応答","size": 4},
-          {"sets": [3],"label": "コミック制作者の支援","size": 13},
-          {"sets": [4],"label": "コンテンツの再利用","size": 13},
-          {"sets": [5],"label": "メタデータ","size": 10},
-          {"sets": [6],"label": "画像検出","size": 13},
-          {"sets": [7],"label": "教育工学","size": 6},
-          {"sets": [8],"label": "実世界IF","size": 3},
-          {"sets": [9],"label": "文学研究とコミック","size": 3}
+          {"sets": [0],"label": "LOD","size": 5},
+          {"sets": [1],"label": "コミックの表現技法の利用","size": 5},
+          {"sets": [2],"label": "コミック質問応答","size": 5},
+          {"sets": [3],"label": "コミック制作者の支援","size": 5},
+          {"sets": [4],"label": "コンテンツの再利用","size": 5},
+          {"sets": [5],"label": "メタデータ","size": 5},
+          {"sets": [6],"label": "画像検出","size": 5},
+          {"sets": [7],"label": "教育工学","size": 5},
+          {"sets": [8],"label": "実世界IF","size": 5},
+          {"sets": [9],"label": "文学研究とコミック","size": 5}
      ]
 }

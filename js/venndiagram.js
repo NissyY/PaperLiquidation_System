@@ -31,6 +31,9 @@ function VennDiagram(themes, papers) {
         if(tagsLength == 0){
             alert('タグを設定してください');
             return;
+        }else if(tagsLength >3){
+            alert('タグは3つまでにしてください');
+            return;
         }
 
         var test = checkDataOfTitleOverlap(papers, title, papers.length);
@@ -40,19 +43,24 @@ function VennDiagram(themes, papers) {
         //     return;
         // }
 
-        for(var i = 0; i < spanLength; i++){
-            if (NotIsIdentifier(i, tags, spanLength)) {
-                // 被っている場合
-                alert('同じタグが設定されています');
-                clearTagData();     
-                return;
-            }
+        // for(var i = 0; i < spanLength; i++){
+        //     if (NotIsIdentifier(i, tags, spanLength)) {
+        //         // 被っている場合
+        //         alert('同じタグが設定されています');
+        //         clearTagData();     
+        //         return;
+        //     }
 
-            check(tags);
-            upSizeVenn(tags[i]);
+        if(NotIsIdentifier(tags, spanLength)){
+            alert('同じタグが設定されています');
+            clearTagData();     
+            return;
+        }else{
+            upSizeVenn(tags);
             addNewVenn(tags);
             overlapTags(tags);
         }
+        
 
         addNewPaperDataSet(papers, tags);
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
@@ -73,103 +81,20 @@ function VennDiagram(themes, papers) {
         });  
     }
 
-    function check(tags){
-        var count = 0;
-        var overlapCase = 0;
-        var overlapTags = [];
-        themes.forEach(function(v, i, a){
-            if(tags.indexOf(v.label) >=0){
-                count ++;
-                overlapTags.push(i);
-            }
-        });
-    }
-    
     function overlapTags(tags){
         var tagSets = [];
         var tagsindex = 0
-        for(var themes_i = 0; themes_i < themes.length; themes_i ++){
-            for(var tags_i = 0; tags_i < tags.length; tags_i ++){
-                if(themes[themes_i].label == tags[tags_i]){
-                    tagSets[tagsindex] = themes[themes_i].sets;
+        var tagsLength = tags.Length;
+        for(var i = 0; i < themes.length; i ++){
+            for(var j = 0; j < tags.length; j ++){
+                if(themes[i].label == tags[j]){
+                    tagSets[tagsindex] = themes[i].sets;
                     tagsindex++;
                 }
             }
         }
         themes.push({"sets":tagSets, "size": 1});
-
-        // var labels = [];
-        // themes.forEach(function(v, i, a) {
-        //     labels.push(v.label);
-        // });
-
-
-        // themes.forEach(function(v, i, a) {
-        //     if (labels.indexOf(v) >= 0) {
-        //         sets.push(themes[]);
-        //     }
-        // });
-
-        // var sets = [];
-        // tags.forEach(function(tag, i) {
-        //     themes.forEach(function(theme, j) {
-        //         if (tag === theme.label) {
-        //             // sets.push(theme["sets"]);
-        //             theme["sets"].forEach(function(v, k) {
-        //                 sets.push(v);                        
-        //             });
-        //         }
-        //     });
-        // });
-
-        // var template = {
-        //     "sets": [], 
-        //     "size": 1
-        // }
-
-        // sets.forEach(function(v, i) {
-        //     template["sets"].push(v);
-        // });
-        // console.log(template);
-        // console.log(sets[0]);
-        // template["sets"].push(1);
-        // template["sets"].push(0);
-        // themes.push(template);
-
-        // console.log(sets);
-
-
-        // console.log(tags);
-        // tags.forEach(function(v, i, a) {
-        //     if (labels.indexOf(v) >= 0) {
-        //         sets.push(themes[]);
-        //     }
-        // });
-
-
-        // themes.forEach(function(v, i, a){
-        //     if(tag1.indexOf(v.label) >= 0){
-        //         sets[0] = v.sets;
-        //     }
-        //     if(tag2.indexOf(v.label) >= 0){
-        //         sets[1] = v.sets;
-        //     }            
-        // });
     }
-
-    // function overlapTwoTags(tag1, tag2){
-    //     var sets = [];
-    //     themes.forEach(function(v, i, a){
-    //         if(tag1.indexOf(v.label) >= 0){
-    //             sets[0] = v.sets;
-    //         }
-    //         if(tag2.indexOf(v.label) >= 0){
-    //             sets[1] = v.sets;
-    //         }            
-    //     });
-    //     themes.push({"sets": [sets[0], sets[1]],"size": 1});
-    // }
-
 
     function updateOverlapVenn(tags, len){
         for(var i = 0; i < len; i ++){
@@ -211,7 +136,7 @@ function VennDiagram(themes, papers) {
                 .css('left', event.pageX  + 'px')
                 .css('top', event.pageY + 'px');
 
-            $('[name="label"]').text(d.size + "users");
+            $('[name="label"]').text(d.size + "users" + " " + d.sets);
 
             $('#tooltip').removeClass('hidden');
         })
