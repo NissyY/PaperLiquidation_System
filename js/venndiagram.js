@@ -43,14 +43,6 @@ function VennDiagram(themes, papers) {
         //     return;
         // }
 
-        // for(var i = 0; i < spanLength; i++){
-        //     if (NotIsIdentifier(i, tags, spanLength)) {
-        //         // 被っている場合
-        //         alert('同じタグが設定されています');
-        //         clearTagData();     
-        //         return;
-        //     }
-
         if(NotIsIdentifier(tags, spanLength)){
             alert('同じタグが設定されています');
             clearTagData();     
@@ -58,14 +50,15 @@ function VennDiagram(themes, papers) {
         }else{
             upSizeVenn(tags);
             addNewVenn(tags);
-            overlapTags(tags);
+            overlapTags(tags, spanLength);
         }
         
-
         addNewPaperDataSet(papers, tags);
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
         div.datum(themes).call(chart);
         tooltipUpdate(themes);
+        console.log(themes.length);
+        console.log(themes);
     });
 
 //追加されたタグと既存タグが重複していればデータ数を増やす
@@ -81,7 +74,10 @@ function VennDiagram(themes, papers) {
         });  
     }
 
-    function overlapTags(tags){
+    function overlapTags(tags, spanLength){
+        if(spanLength < 2){
+            return;
+        }
         var tagSets = [];
         var tagsindex = 0
         var tagsLength = tags.Length;
