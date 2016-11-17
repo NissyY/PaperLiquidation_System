@@ -16,7 +16,6 @@ function clearTagData(tags){
 function NotIsIdentifier(tags, len) {
     for(var i = 0; i < len - 1; i++){
         for(var j = i + 1; j < len; j ++){
-            console.log('ok');
             if(tags[i] == tags[j]){
             return true;
             }

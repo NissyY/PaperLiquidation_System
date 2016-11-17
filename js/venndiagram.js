@@ -57,7 +57,6 @@ function VennDiagram(themes, papers) {
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
         div.datum(themes).call(chart);
         tooltipUpdate(themes);
-        console.log(themes.length);
         console.log(themes);
     });
 
@@ -75,21 +74,42 @@ function VennDiagram(themes, papers) {
     }
 
     function overlapTags(tags, spanLength){
-        if(spanLength < 2){
-            return;
-        }
+        if(spanLength <= 1){ return; }
+
         var tagSets = [];
-        var tagsindex = 0
         var tagsLength = tags.Length;
+        
         for(var i = 0; i < themes.length; i ++){
-            for(var j = 0; j < tags.length; j ++){
-                if(themes[i].label == tags[j]){
-                    tagSets[tagsindex] = themes[i].sets;
-                    tagsindex++;
-                }
-            }
+            tagSets = compareThemeWithTags(themes[i], tags, tagSets);
+            // for(var j = 0; j < tags.length; j ++){
+            //     if(themes[i].label == tags[j]){
+            //         tagSets.push(themes[i].sets);
+            //     }
+            // }
         }
         themes.push({"sets":tagSets, "size": 1});
+
+        if(tagSets.length == 3){
+            combinationOf(tagSets);
+        }
+    }
+
+    function compareThemeWithTags(theme, tags, tagSets) {
+        // var res = []
+        for(var j = 0; j < tags.length; j ++){
+            if(theme.label == tags[j]){
+                tagSets.push(theme.sets);
+            }
+        }
+        return tagSets;
+    }
+
+    function combinationOf(tagSets) {
+        for(var i = 0; i <= 2; i ++){
+            for(var j = i + 1; j <= 2; j ++){
+                themes.push({"sets":[tagSets[i], tagSets[j]], "size": 1});
+            }
+        }
     }
 
     function updateOverlapVenn(tags, len){
