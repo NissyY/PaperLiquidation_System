@@ -6,7 +6,7 @@
                "theme":"LOD",
                "date":"2013",
                "society":"情報処理学会研究報告",
-               "comment":"",
+               "comment":"オントロジーは使えそう",
                "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
           },
           {
@@ -15,7 +15,7 @@
                "theme":"LOD",
                "date":"2013",
                "society":"情報処理学会第75回全国大会",
-               "comment":"",
+               "comment":"関連情報はこの論文を見ればOK",
                "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
           },
           {
@@ -31,6 +31,15 @@
                "title":"マンガ表現を利用したコンテキストアウェアアプリケーション",
                "author":["角 康之", "松村 耕平"],
                "theme":"コミックの表現技法の利用",
+               "date":"",
+               "society":"",
+               "comment":"",
+               "link":""
+          },
+                    {
+               "title":"a",
+               "author":"",
+               "theme":"",
                "date":"",
                "society":"",
                "comment":"",

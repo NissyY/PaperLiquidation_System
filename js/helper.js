@@ -14,6 +14,15 @@ function NotIsIdentifier(target, tags, len) {
     return false;
 }
 
+function checkDataOfTitleOverlap(papers, title, len){
+    for(var i = 0; i < len; i ++){
+        if (title == papers[i].title) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function transformInputtedTagTextToTexts(len, tags) {
     var res = [];
     for(var i = 0 ; i < len; i++) {
@@ -27,15 +36,14 @@ function removeSpanOfTag(){
 }
 
 //jsonパース
-function createPaperDataSetJsonFile(papers){
+function addNewPaperDataSet(papers, tags){
     papers.push({
             "title":$("#title").val(),
             "author":$("#author").val(),
-            // "theme":tagName,
+            "theme":(tags),//TODO: tagsのままだとオブジェクトとして格納されるからなんとかする
             "date":$("#date").val(),
             "society":$("#society").val(),
             "comment":$("#comment").val(),
             "link":""
     });
-    console.log(papers);
 }
