@@ -37,9 +37,9 @@
                "link":""
           },
                     {
-               "title":"a",
-               "author":"",
-               "theme":"",
+               "title":"hogehoge",
+               "author":["hogehoge"],
+               "theme":"メタデータ",
                "date":"",
                "society":"",
                "comment":"",
