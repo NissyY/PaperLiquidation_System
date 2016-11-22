@@ -15,18 +15,25 @@ $(function() {
 		}, onRejected);		
 	}
 
+	$('#author').tagify({
+		addTagPrompt: 'Author'
+	});
+
 	$('#tagme').tagify({
 		//テキストボックスの名前
 		addTagPrompt: 'Theme'
 	});
 
+	$('div.tagify-container')
+			.css('margin-bottom', '10px');
+
     $('#toggleForm').click(function(){
-        $('#form-main').toggle();
+        $('#form-div').toggle();
         clearValue();
     });
 
     $('#exitBtn').click(function(){
-        $("#form-main").toggle();
+        $("#form-div").toggle();
         clearValue();
     });
 
@@ -42,12 +49,20 @@ $(function() {
     // ここから下はうまく整理して
 
 	$("#showThemeBtn").click(function(){
-		$(this).addClass("disabled");
-		$('#showPaperBtn').removeClass("disabled");
+		$(this).addClass('disabled');
+		$('#paperInformationArea').toggle();
+		$('#themeInformationArea').toggle();
+		$("#showPaperBtn").prop("disabled", false);
+		$("#showThemeBtn").prop("disabled", true);
+		$('#showPaperBtn').removeClass('disabled');
 	});
 
 	$("#showPaperBtn").click(function(){
 		$(this).addClass("disabled");
+		$('#themeInformationArea').toggle();
+		$('#paperInformationArea').toggle();
+		$("#showThemeBtn").prop("disabled", false);
+		$("#showPaperBtn").prop("disabled", true);
 		$('#showThemeBtn').removeClass("disabled");
 	});
 });

@@ -22,11 +22,18 @@ function VennDiagram(themes, papers) {
 
     $('#addPaper').click(function() {
         removeSpanOfTag();
-        var spans = $('div[class="tagify-container"] span');
+        //入力された著者名の解析
+        var spans2 = $('.inputPaperAuthor > div[class="tagify-container"] span');
+        var span2Length = spans2.length; 
+        var authors = transformInputtedTagTextToTexts(span2Length, spans2);
+        //入力されたテーマの解析
+        var spans = $('.inputPaperTheme > div[class="tagify-container"] span');
         var spanLength = spans.length;
         var tags = transformInputtedTagTextToTexts(spanLength, spans);
+        
         var tagsLength = tags.length;
         var title = $("#title").val();
+        var singleSetsNum;
 
         if(tagsLength == 0){
             alert('タグを設定してください');
@@ -49,61 +56,110 @@ function VennDiagram(themes, papers) {
             return;
         }else{
             upSizeVenn(tags);
-            addNewVenn(tags);
-            overlapTags(tags, spanLength);
+            singleSetsNum = singleSetsCount();
+            addNewVenn(tags, singleSetsNum);
+            addNewOverlapTagsToVenn(tags, spanLength, singleSetsNum);
         }
         
-        addNewPaperDataSet(papers, tags);
+        addNewPaperDataSet(papers,authors, tags);
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
         div.datum(themes).call(chart);
-        tooltipUpdate(themes);
-        console.log(themes);
+        tooltipUpdate(themes, papers);
     });
 
-//追加されたタグと既存タグが重複していればデータ数を増やす
-    function upSizeVenn(tags){
-        var test = [];
-        var l = 0;
-        themes.forEach(function(v, i, a) {
-            if (tags.indexOf(v.label) >= 0) {
-                a[i].size += 1;
-                test[l] = v.sets;
-                l ++;
-            }
-        });  
-    }
 
-    function overlapTags(tags, spanLength){
+//関数---------------------------------------------------------------
+
+    function addNewOverlapTagsToVenn(tags, spanLength, singleSetsNum){
         if(spanLength <= 1){ return; }
 
         var tagSets = [];
-        var tagsLength = tags.Length;
-        
-        for(var i = 0; i < themes.length; i ++){
-            tagSets = compareThemeWithTags(themes[i], tags, tagSets);
-            // for(var j = 0; j < tags.length; j ++){
-            //     if(themes[i].label == tags[j]){
-            //         tagSets.push(themes[i].sets);
-            //     }
-            // }
-        }
-        themes.push({"sets":tagSets, "size": 1});
 
+        var setsNum = [];
+        for(var i = 0; i < themes.length; i ++){
+            for(var j = 0; j < spanLength; j ++){
+                if(themes[i].label == tags[j]){
+                    setsNum.push(themes[i].sets);
+                }
+            }
+        }
+
+        for(var i = 0; i < themes.length; i ++){
+            tagSets = compareThemeWithTags(themes[i], tags, spanLength, tagSets);
+        }
+
+        var overlapNum;
+
+        if(tagSets.length == 2){
+            overlapNum = twoOverlapSizeUp(tagSets)
+        }
         if(tagSets.length == 3){
-            combinationOf(tagSets);
+            overlapNum = threeOverlapUpSize(tagSets)
+        }
+
+        if(overlapNum){
+            themes.push({"sets":tagSets, "size": 1});    
+
+            if(tagSets.length == 3){
+                combinationOf(tagSets);
+            }
         }
     }
 
-    function compareThemeWithTags(theme, tags, tagSets) {
-        // var res = []
-        for(var j = 0; j < tags.length; j ++){
-            if(theme.label == tags[j]){
-                tagSets.push(theme.sets);
+    function twoOverlapSizeUp(tag){
+        var res = true;
+        var tmp = 0;
+
+        for(var i = 0; i < themes.length; i++){
+            if(themes[i].sets.length == 2){
+                tmp = overlapConfirmation(i, tag);
+                if(tmp >= 2){
+                    res = false;
+                    themes[i].size++;
+                }
+            }
+        }
+        return res;
+    }
+
+    function threeOverlapUpSize(tag){
+        var res = true;
+        var tmp = 0;
+
+        for(var i = 0; i < themes.length; i++){
+            if(themes[i].sets.length == 3){
+                tmp = overlapConfirmation(i, tag);
+            }
+            if(tmp >= 3){
+                res = false;
+                themes[i].size++;
+            }
+        }
+        return res;
+    }
+
+    function overlapConfirmation(i, tag, a){
+        var res = 0;
+        for(var j = 0; j < tag.length; j++){
+            if(tag[j] == themes[i].sets[j]){
+                res++;
+            }
+        }
+        return res;
+    }
+
+
+//見直し不要 既存データと入力データの比較 → 重なっていたら新規sets生成
+    function compareThemeWithTags(theme, tags, tagsLen, tagSets) {
+        for(var i = 0; i < tagsLen; i ++){
+            if(theme.label == tags[i]){
+                tagSets.push(theme.sets[0]);
             }
         }
         return tagSets;
     }
 
+//見直し不要 3つ重なりがある場合 2つの組み合わせ(3通り)を生成
     function combinationOf(tagSets) {
         for(var i = 0; i <= 2; i ++){
             for(var j = i + 1; j <= 2; j ++){
@@ -112,17 +168,8 @@ function VennDiagram(themes, papers) {
         }
     }
 
-    function updateOverlapVenn(tags, len){
-        for(var i = 0; i < len; i ++){
-            for(var j = 0; j < themes.length; j ++){
-                if(tags[i] == themes[j].label){
-                    themes[j].size++;
-                }
-            }
-        }
-    }
-
-    function addNewVenn(tags) {
+//setsをthemes.lengthにするとあとあとバグでない？singleSetsNum使うとおかしくなる
+    function addNewVenn(tags, singleSetsNum) {
         var labels = [];
         themes.forEach(function(v, i, a) {
             labels.push(v.label);
@@ -139,7 +186,31 @@ function VennDiagram(themes, papers) {
         });
     }
 
-    function tooltipUpdate(theme){
+//見直し不要 追加されたタグと既存タグが重複していればデータ数を増やす
+    function upSizeVenn(tags){
+        var tmp = [];
+        var l = 0;
+        themes.forEach(function(v, i, a) {
+            if (tags.indexOf(v.label) >= 0) {
+                a[i].size += 1;
+                tmp[l] = v.sets;
+                l ++;
+            }
+        });  
+    }
+
+//見直し不要 themesのsets[i]の数
+    function singleSetsCount(){
+        var count = 0;
+        for (var i = 0; i < themes.length; i++) {
+            if('label' in themes[i]){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    function tooltipUpdate(theme, paper){
         div.selectAll("g")
         .on("mouseover", function(d, i) {
             venn.sortAreas(div, d);
@@ -171,7 +242,7 @@ function VennDiagram(themes, papers) {
                 $('#tooltip').addClass('hidden');
         })
         .on("click",function(d, i) {
-            console.log(d);
+            displayMetadata(d, papers);
         });
     }
 }
