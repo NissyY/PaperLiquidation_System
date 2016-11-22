@@ -10,7 +10,8 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		
 		<script type="text/javascript" src="lib/jquery-1.12.4.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+		<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script> -->
+		<script src="lib/jquery-ui.js"></script>
 		<script src="lib/jquery.tagify.js"></script>
 		<script src="lib/d3.min.js"></script>
 		<script src="lib/venn.js"></script>
@@ -18,7 +19,7 @@
 	</head>
 	<body>
 		<!-- 左側 -->
-		<div id="vennArea" class="col-md-7">
+		<div id="vennArea" class="col-md-6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					D3.js
@@ -32,7 +33,7 @@
 		</div>
 
 		<!-- 右側 -->
-		<div id="paperDetailArea" class="col-md-5 ">
+		<div id="paperDetailArea" class="col-md-6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					Detailed Information
@@ -43,51 +44,50 @@
 					    <button type="button" id="toggleForm" class="btn btn-default">
 					        <span class="glyphicon glyphicon-plus">追加
 					    </button>
-					    <button type="button" id="showThemeBtn" class="btn btn-default">テーマ</button>
-					    <button type="button" id="showPaperBtn" class="btn btn-default">論文</button>
+					    <button type="button" id="showThemeBtn" class="btn btn-default" disabled="disabled">Theme</button>
+					    <button type="button" id="showPaperBtn" class="btn btn-default">Paper</button>
 					</form>
 
 					<!-- 詳細情報提示 -->
 					<!-- 後で復活させる -->
-					<!-- <div id="themeInformationArea" ></div>
-					<div id="paperInformationArea" style="display: none;"></div> -->
+					<div id="themeInformationArea"></div>
+					<div id="paperInformationArea" style="display: none;"></div>
 
 					<!-- 論文データ追加フォーム -->
-					<!-- <div id="form-main" style="display: none;"> -->
-					<div id="form-main">
-						<div id="form-div">
-				    		<form class="form" id="addPaperInformation">  
-						    	<div class="inoutPaperTitle">
-						        	<input id="title" name="title" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Title"/>
-						    	</div>
-						    	<div class="inputPaperAuthor">
-						        	<input id="author" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Author" />
-						    	</div>
-						    	<div class="inputPaperTheme">
-						        	<textarea id="tagme" name="tags" type="text" class="validate[required,custom[tags]] feedback-input" placeholder="Theme"></textarea>
-						    	</div>
-						    	<div class="inputPaperAuthor">
-						        	<input id="date" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Date" />
-						    	</div>
-						    	<div class="inputPaperAuthor">
-						        	<input id="society" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Society" />
-						    	</div>
-								<div class="inputComment">
-						        	<textarea id="comment" name="comment" class="validate[required,length[6,300]] feedback-input" placeholder="Comment"></textarea>
-						    	</div>
-						    	
-						    	<div id="btn" class="row">
-							    	<div id="addPaper" class="submit col-xs-8 col-sm-6">
-						    			<input type="button" value="ADD" id="button-blue"/>
-										<div class="ease"></div>
-									</div>
-									<div id="exitBtn" class="submit col-xs-8 col-sm-6">
-						    			<input type="button" value="EXIT" id="button-blue"/>
-										<div class="ease"></div>
-									</div>
+					<!-- <div id="form-div" style="display: none;"> -->
+					<div id="form-div">
+			    		<form class="form" id="addPaperInformation">  
+					    	<div class="inoutPaperTitle">
+					        	<input id="title" name="title" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Title"/>
+					    	</div>
+					    	<div class="inputPaperAuthor">
+					        	<!-- <input id="author" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Author" /> -->
+					        	<textarea id="author" name="tags" type="text" class="validate[required,custom[tags]] feedback-input" placeholder="Theme"></textarea>
+					    	</div>
+					    	<div class="inputPaperTheme">
+					        	<textarea id="tagme" name="tags" type="text" class="validate[required,custom[tags]] feedback-input" placeholder="Theme"></textarea>
+					    	</div>
+					    	<div class="inputPaperAuthor">
+					        	<input id="date" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Date" />
+					    	</div>
+					    	<div class="inputPaperAuthor">
+					        	<input id="society" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Society" />
+					    	</div>
+							<div class="inputComment">
+					        	<textarea id="comment" name="comment" class="validate[required,length[6,300]] feedback-input" placeholder="Comment"></textarea>
+					    	</div>
+					    	
+					    	<div id="btn" class="row">
+						    	<div id="addPaper" class="submit col-xs-8 col-sm-6">
+					    			<input type="button" value="ADD" id="button-blue"/>
+									<div class="ease"></div>
 								</div>
-							</form>
-						</div>
+								<div id="exitBtn" class="submit col-xs-8 col-sm-6">
+					    			<input type="button" value="EXIT" id="button-blue"/>
+									<div class="ease"></div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 				
