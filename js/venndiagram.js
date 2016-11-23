@@ -242,7 +242,8 @@ function VennDiagram(themes, papers) {
                 $('#tooltip').addClass('hidden');
         })
         .on("click",function(d, i) {
-            displayMetadata(d, papers);
+            // console.log(d)
+            displayMetadata(themes, d, papers);
         });
     }
 }

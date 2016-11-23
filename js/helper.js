@@ -40,17 +40,18 @@ function removeSpanOfTag(){
 //jsonパース
 function addNewPaperDataSet(papers,authorsName, tags){
     papers.push({
-            "title":$("#title").val(),
-            "author":(authorsName),
-            "theme":(tags),//TODO: tagsのままだとオブジェクトとして格納されるからなんとかする
-            "date":$("#date").val(),
-            "society":$("#society").val(),
-            "comment":$("#comment").val(),
-            "link":""
+        "title":$("#title").val(),
+        "author":(authorsName),
+        "theme":(tags),//TODO: tagsのままだとオブジェクトとして格納されるからなんとかする
+        "date":$("#date").val(),
+        "society":$("#society").val(),
+        "comment":$("#comment").val(),
+        "link":""
     });
 }
+
 //クリックしたテーマに関するデータを表示する
-function displayMetadata(theme, papers){
+function displayMetadata(themes, theme, papers){
     var title = [];
     var author = [];
 
@@ -61,7 +62,7 @@ function displayMetadata(theme, papers){
         }
     }
 
-    var paperIndexes = getArrayIndexOfPapersData(theme, papers);
+    var paperIndexes = getArrayIndexOfPapersData(themes, theme, papers);
     var targetedPapers = searchPapers(paperIndexes, papers);
 
     var authorDataOfTheme = authorData(author);
@@ -71,13 +72,60 @@ function displayMetadata(theme, papers){
     outputDataOfPaper(targetedPapers);
 }
 
-function getArrayIndexOfPapersData(theme, papers){
+function getArrayIndexOfPapersData(themes, theme, papers){
     var tmp = [];
-    for(var i = 0; i < papers.length; i++){
-        if(theme.label == papers[i].theme){
-            tmp.push(i);
+    var tmp2 = [];
+    var tmp2Length;
+    var a = 0;
+
+    for(var i = 0; i < theme.sets.length; i++){
+        tmp2.push(theme.sets[i]);
+    }
+    tmp2Length = tmp2.length;
+
+    if(tmp2Length == 1){
+        for(var i = 0; i < papers.length; i++){
+            for(var j = 0; j < papers[i].theme.length; j++){
+                if(themes[tmp2[0]].label == papers[i].theme[j]){
+                    a++;
+                    if(a > 0){
+                        tmp.push(i);
+                    }
+                }    
+            }
+        }
+    }else if(tmp2Length == 2){
+        for(var i = 0; i < tmp2Length; i++){
+            for(var j = 0; j < papers.length; j++){
+                if(papers[j].theme.length == tmp2Length){
+                    for(var k = 0; k < tmp2Length; k++){
+                        if(themes[tmp2[i]].label == papers[j].theme[k]){
+                            a++;
+                            if(a == tmp2Length){
+                                tmp.push(j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }else{
+        for(var i = 0; i < tmp2Length; i++){
+            for(var j = 0; j < papers.length; j++){
+                if(papers[j].theme.length == tmp2Length){
+                    for(var k = 0; k < tmp2Length; k++){
+                        if(themes[tmp2[i]].label == papers[j].theme[k]){
+                            a++;
+                            if(a == tmp2Length){
+                                tmp.push(j);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+
     return tmp;    
 }
 
