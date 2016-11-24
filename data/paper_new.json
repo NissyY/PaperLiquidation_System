@@ -1,7 +1,7 @@
 {
     "papers": [
           {
-               "title":"多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー",
+               "title":"LOD 多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー",
                "author":["小平 優衣", "鈴木 啓史", "三原 徹也", "永森 光晴", "杉本 重雄"],
                "theme":["LOD"],
                "date":"2013",
@@ -10,7 +10,7 @@
                "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
           },
           {
-               "title":"Linked Open Dataを利用したマンガへのアクセス支援 –メタデータによるマンガ情報の可視化– ",
+               "title":"LOD Linked Open Dataを利用したマンガへのアクセス支援 –メタデータによるマンガ情報の可視化– ",
                "author":["岩間 勇介", "三原 鉄也", "永森 光晴", "杉本 重雄"],
                "theme":["LOD"],
                "date":"2013",
@@ -19,7 +19,7 @@
                "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
           },
           {
-               "title":"マンガにおける表現技法の進化 –何がマンガを文芸に成長させたのか– ",
+               "title":"表現技法 マンガにおける表現技法の進化 –何がマンガを文芸に成長させたのか– ",
                "author":["高月 義照"],
                "theme":["コミックの表現技法の利用"],
                "date":"",
@@ -28,7 +28,7 @@
                "link":""
           },
           {
-               "title":"マンガ表現を利用したコンテキストアウェアアプリケーション",
+               "title":"表現技法 マンガ表現を利用したコンテキストアウェアアプリケーション",
                "author":["角 康之", "松村 耕平"],
                "theme":["コミックの表現技法の利用"],
                "date":"",
@@ -36,10 +36,73 @@
                "comment":"",
                "link":""
           },
-                    {
-               "title":"hogehoge",
-               "author":["hogehoge", "松村 将兵"],
+          {
+               "title":"表現技法 マンガ表現を利用したコンテキストアウェアアプリケーション",
+               "author":["角 康之", "松村 耕平"],
+               "theme":["画像検出"],
+               "date":"",
+               "society":"",
+               "comment":"",
+               "link":""
+          },
+          {
+               "title":"メタデータLOD",
+               "author":["hoge hoge子", "hoge hoge男"],
                "theme":["メタデータ", "LOD"],
+               "date":"",
+               "society":"",
+               "comment":"",
+               "link":""
+          },
+          {
+               "title":"メタデータLODhoge",
+               "author":["hoge hoge子", "hoge hoge男"],
+               "theme":["メタデータ", "LOD"],
+               "date":"",
+               "society":"",
+               "comment":"",
+               "link":""
+          },
+          {
+               "title":"2メタデータ LOD 0 5 の論文1",
+               "author":["hogehoge", "松村 将兵"],
+               "theme":["LOD", "メタデータ"],
+               "date":"2016",
+               "society":"人工知能学会",
+               "comment":"テスト",
+               "link":""
+          },
+          {
+               "title":"2メタデータ　LOD 0 5 の論文2",
+               "author":["hogehoge", "松村 将兵"],
+               "theme":["LOD", "メタデータ"],
+               "date":"2016",
+               "society":"人工知能学会",
+               "comment":"テスト",
+               "link":""
+          },
+          {
+               "title":"2LOD　画像検出hoge",
+               "author":["hogehoge", "松村 将兵"],
+               "theme":["LOD", "画像検出"],
+               "date":"2016",
+               "society":"人工知能学会",
+               "comment":"テスト",
+               "link":""
+          },
+          {
+               "title":"2LOD　画像検出test",
+               "author":["hogehoge", "松村 将兵"],
+               "theme":["LOD", "画像検出"],
+               "date":"2016",
+               "society":"人工知能学会",
+               "comment":"テスト",
+               "link":""
+          },
+          {
+               "title":"3メタデータ LOD 画像検出hogehoge１１",
+               "author":["hogehoge", "松村 将兵"],
+               "theme":["メタデータ", "LOD", "画像検出"],
                "date":"2016",
                "society":"人工知能学会",
                "comment":"テスト",

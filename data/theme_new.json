@@ -10,6 +10,8 @@
           {"sets": [7],"label": "教育工学","size": 5},
           {"sets": [8],"label": "実世界IF","size": 5},
           {"sets": [9],"label": "文学研究とコミック","size": 5},
-          {"sets": [0, 5],"size": 1}
+          {"sets": [0, 6],"size": 2},
+          {"sets": [0, 5],"size": 3},
+          {"sets": [0, 6, 5],"size": 1}
      ]
 }
