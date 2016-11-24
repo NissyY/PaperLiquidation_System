@@ -49,20 +49,20 @@ $(function() {
     // ここから下はうまく整理して
 
 	$("#showThemeBtn").click(function(){
-		$(this).addClass('disabled');
+		$(this).addClass('disabled btn-info');
 		$('#paperInformationArea').toggle();
 		$('#themeInformationArea').toggle();
 		$("#showPaperBtn").prop("disabled", false);
 		$("#showThemeBtn").prop("disabled", true);
-		$('#showPaperBtn').removeClass('disabled');
+		$('#showPaperBtn').removeClass('disabled btn-info');
 	});
 
 	$("#showPaperBtn").click(function(){
-		$(this).addClass("disabled");
+		$(this).addClass("disabled btn-info");
 		$('#themeInformationArea').toggle();
 		$('#paperInformationArea').toggle();
 		$("#showThemeBtn").prop("disabled", false);
 		$("#showPaperBtn").prop("disabled", true);
-		$('#showThemeBtn').removeClass("disabled");
+		$('#showThemeBtn').removeClass("disabled btn-info");
 	});
 });

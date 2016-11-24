@@ -10,7 +10,6 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		
 		<script type="text/javascript" src="lib/jquery-1.12.4.min.js"></script>
-		<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script> -->
 		<script src="lib/jquery-ui.js"></script>
 		<script src="lib/jquery.tagify.js"></script>
 		<script src="lib/d3.min.js"></script>
@@ -24,6 +23,9 @@
 				<div class="panel-heading">
 					D3.js
 				</div>
+				<button type="button" id="toggleForm" class="btn btn-default col-xs-offset-11">
+			        <span class="glyphicon glyphicon-plus">
+			    </button>
 				<div id="venn" class="center-block">
 				    <div id="tooltip" class="hidden">
 						<p name="label"></p>
@@ -39,29 +41,32 @@
 					Detailed Information
 				</div>
 				<div id="detailArea">
-					<!-- ボタン -->
 					<form id="btnForm" class="form-inline" role="form">
-					    <button type="button" id="toggleForm" class="btn btn-default">
-					        <span class="glyphicon glyphicon-plus">追加
-					    </button>
-					    <button type="button" id="showThemeBtn" class="btn btn-default" disabled="disabled">Theme</button>
-					    <button type="button" id="showPaperBtn" class="btn btn-default">Paper</button>
+					    <button type="button" id="showThemeBtn" class="btn btn-default col-sm-6 btn-info" disabled="disabled">Theme</button>
+					    <button type="button" id="showPaperBtn" class="btn btn-default col-sm-6">Paper</button>
 					</form>
-
-					<!-- 詳細情報提示 -->
-					<!-- 後で復活させる -->
-					<div id="themeInformationArea"></div>
+					
+					<div id="themeInformationArea">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>author name</th>
+									<th>frequency</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+							</tbody>
+						</table>
+					</div>
 					<div id="paperInformationArea" style="display: none;"></div>
-
-					<!-- 論文データ追加フォーム -->
-					<!-- <div id="form-div" style="display: none;"> -->
+					
 					<div id="form-div">
 			    		<form class="form" id="addPaperInformation">  
 					    	<div class="inoutPaperTitle">
 					        	<input id="title" name="title" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Title"/>
 					    	</div>
 					    	<div class="inputPaperAuthor">
-					        	<!-- <input id="author" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Author" /> -->
 					        	<textarea id="author" name="tags" type="text" class="validate[required,custom[tags]] feedback-input" placeholder="Theme"></textarea>
 					    	</div>
 					    	<div class="inputPaperTheme">
@@ -90,7 +95,6 @@
 						</form>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 

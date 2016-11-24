@@ -52,41 +52,99 @@ function addNewPaperDataSet(papers,authorsName, tags){
 
 //クリックしたテーマに関するデータを表示する
 function displayMetadata(themes, theme, papers){
-    var title = [];
     var author = [];
+    var index = [];
+    var paperDatas = [];
+    var themesLabel = [];
 
+    themesLabel = getIndexDataHasMultipleTheme(theme, themes);
+
+    if(theme.sets.length == 1){
+        for(var i = 0; i < papers.length; i++){
+            for(var j = 0; j < themesLabel.length; j++){
+                if(papers[i].theme[0] == themesLabel[j]){
+                    paperDatas.push(papers[i]);
+                    author.push(papers[i].author);
+                }
+            }
+        }
+    }else if(theme.sets.length == 2){
+        for(var i = 0; i < papers.length; i++){
+            if(papers[i].theme.length > 1){
+                for(var j = 0; j < themesLabel.length; j++){
+                    for(var k = 0; k < themesLabel.length; k++){
+                        if(papers[i].theme[0] == themesLabel[j] && papers[i].theme[1] == themesLabel[k]){
+                            paperDatas.push(papers[i]);
+                            author.push(papers[i].author);
+                        }
+                    }
+                }
+            }
+        }
+    }else{
+        var b = 0;
+        for(var i = 0; i < papers.length; i++){
+            if(papers[i].theme.length > 1){
+                for(var j = 0; j < themesLabel.length; j++){
+                    for(var k = 0; k < themesLabel.length; k++){
+                        for(var a = 0; a < 2; a++){
+                            if(papers[i].theme[a] == themesLabel[j]){
+                                b++;
+                                if(b == 3){
+                                    paperDatas.push(papers[i]);
+                                    author.push(papers[i].author);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    var authorDataOfTheme = authorData(author);
+    removeData();
+    outputDataOfTheme(authorDataOfTheme);
+    outputDataOfPaper(paperDatas);
+}
+
+function getIndexDataHasMultipleTheme(theme, themes){
+    var res = [];
+    for(var i = 0; i < theme.sets.length; i++){
+        for(var j = 0; j < themes.length; j++){
+            if(theme.sets[i] == themes[j].sets){
+                res.push(themes[j].label);
+            }
+        }
+    }
+    return res;
+}
+
+function searchAuthorToData(papers, theme){
+    var author = [];
     for(var i = 0; i < papers.length; i++){
         if(theme.label == papers[i].theme){
-            title.push(papers[i].title);
             author.push(papers[i].author)
         }
     }
-
-    var paperIndexes = getArrayIndexOfPapersData(themes, theme, papers);
-    var targetedPapers = searchPapers(paperIndexes, papers);
-
-    var authorDataOfTheme = authorData(author);
-
-    removeData();
-    outputDataOfTheme(authorDataOfTheme);
-    outputDataOfPaper(targetedPapers);
+    return author;
 }
 
 function getArrayIndexOfPapersData(themes, theme, papers){
     var tmp = [];
-    var tmp2 = [];
-    var tmp2Length;
+    var themeSets = [];
+    var themeSetsLength;
     var a = 0;
 
+//クリックしたテーマのsetsインデックス番号をthemeSetsに格納
     for(var i = 0; i < theme.sets.length; i++){
-        tmp2.push(theme.sets[i]);
+        themeSets.push(theme.sets[i]);
     }
-    tmp2Length = tmp2.length;
+    themeSetsLength = themeSets.length;
 
-    if(tmp2Length == 1){
+    if(themeSetsLength == 1){
         for(var i = 0; i < papers.length; i++){
             for(var j = 0; j < papers[i].theme.length; j++){
-                if(themes[tmp2[0]].label == papers[i].theme[j]){
+                if(themes[themeSets[0]].label == papers[i].theme[j]){
                     a++;
                     if(a > 0){
                         tmp.push(i);
@@ -94,56 +152,59 @@ function getArrayIndexOfPapersData(themes, theme, papers){
                 }    
             }
         }
-    }else if(tmp2Length == 2){
-        for(var i = 0; i < tmp2Length; i++){
-            for(var j = 0; j < papers.length; j++){
-                if(papers[j].theme.length == tmp2Length){
-                    for(var k = 0; k < tmp2Length; k++){
-                        if(themes[tmp2[i]].label == papers[j].theme[k]){
-                            a++;
-                            if(a == tmp2Length){
-                                tmp.push(j);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    }
+    else if(themeSetsLength == 2){
+        tmp = searchPaperData(themes, themeSets, themeSetsLength, papers);
     }else{
-        for(var i = 0; i < tmp2Length; i++){
-            for(var j = 0; j < papers.length; j++){
-                if(papers[j].theme.length == tmp2Length){
-                    for(var k = 0; k < tmp2Length; k++){
-                        if(themes[tmp2[i]].label == papers[j].theme[k]){
-                            a++;
-                            if(a == tmp2Length){
-                                tmp.push(j);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        tmp = searchPaperData(themes, themeSets, themeSetsLength, papers);
     }
 
     return tmp;    
 }
 
-function searchPapers(indexes, papers){
-    var tmp = [];
-    for(var j = 0; j < indexes.length; j++){
-        tmp.push(papers[indexes[j]]);
+function searchPaperData(themes, target, len, papers){
+    var res = [];
+    var tmp = 0;
+    for(var i = 0; i < len; i++){
+        for(var j = 0; j < papers.length; j++){
+            if(papers[j].theme.length == len){
+                for(var k = 0; k < len; k++){
+                    if(themes[target[i]].label == papers[j].theme[k]){
+                        tmp++;
+                        if(tmp == len){
+                            res.push(j);
+                        }
+                    }
+                }
+            }
+        }
     }
-    return tmp;
+    return res;
 }
 
+// function searchPapers(indexes, papers){
+//     var tmp = [];
+//     for(var j = 0; j < indexes.length; j++){
+//         tmp.push(papers[indexes[j]]);
+//     }
+//     return tmp;
+// }
+
 function outputDataOfTheme(authorDataOfTheme){
-    d3.select('#themeInformationArea').selectAll('p')
+    authorSizeDescendingSort(authorDataOfTheme);
+    
+    d3.select('#themeInformationArea table tbody').selectAll('tr')
         .data(authorDataOfTheme)
         .enter()
-        .append('p')
-        .text(function(d, i){
-            return d.authorName + ' : ' + d.size;
+        .append('tr')
+        .selectAll('td')
+        .data(function(row){
+            return d3.entries(row)
+        })
+        .enter()
+        .append('td')
+        .text(function(d){
+            return d.value;
         })
         .on('click', function(d, i){
             console.log(d);
@@ -158,13 +219,24 @@ function outputDataOfPaper(papers){
         .text(function(d, i){
             return d.title;
         })
+        .on('click', function(d, i){
+            console.log(d);
+        })
 }
 
 function removeData(){
-    d3.select('#themeInformationArea').selectAll('p')
+    d3.select('#themeInformationArea table tbody')
+        .selectAll('tr')
         .remove()
-    d3.select('#paperInformationArea').selectAll('p')
+    d3.select('#paperInformationArea')
+        .selectAll('p')
         .remove()
+}
+
+function authorSizeDescendingSort(papersData){
+    papersData.sort(function(a, b) {
+        return (a.size > b.size) ? -1 : 1;
+    });
 }
 
 //著者情報の整理

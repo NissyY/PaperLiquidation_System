@@ -1,7 +1,7 @@
 function VennDiagram(themes, papers) {
     var chart = venn.VennDiagram()
                      .width(500)
-                     .height(600);
+                     .height(566);
 
     var tooltip = d3.select("body")
         .append("div")
