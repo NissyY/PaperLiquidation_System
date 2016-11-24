@@ -44,69 +44,6 @@
                "society":"",
                "comment":"",
                "link":""
-          },
-          {
-               "title":"メタデータLOD",
-               "author":["hoge hoge子", "hoge hoge男"],
-               "theme":["メタデータ", "LOD"],
-               "date":"",
-               "society":"",
-               "comment":"",
-               "link":""
-          },
-          {
-               "title":"メタデータLODhoge",
-               "author":["hoge hoge子", "hoge hoge男"],
-               "theme":["メタデータ", "LOD"],
-               "date":"",
-               "society":"",
-               "comment":"",
-               "link":""
-          },
-          {
-               "title":"2メタデータ LOD 0 5 の論文1",
-               "author":["hogehoge", "松村 将兵"],
-               "theme":["LOD", "メタデータ"],
-               "date":"2016",
-               "society":"人工知能学会",
-               "comment":"テスト",
-               "link":""
-          },
-          {
-               "title":"2メタデータ　LOD 0 5 の論文2",
-               "author":["hogehoge", "松村 将兵"],
-               "theme":["LOD", "メタデータ"],
-               "date":"2016",
-               "society":"人工知能学会",
-               "comment":"テスト",
-               "link":""
-          },
-          {
-               "title":"2LOD　画像検出hoge",
-               "author":["hogehoge", "松村 将兵"],
-               "theme":["LOD", "画像検出"],
-               "date":"2016",
-               "society":"人工知能学会",
-               "comment":"テスト",
-               "link":""
-          },
-          {
-               "title":"2LOD　画像検出test",
-               "author":["hogehoge", "松村 将兵"],
-               "theme":["LOD", "画像検出"],
-               "date":"2016",
-               "society":"人工知能学会",
-               "comment":"テスト",
-               "link":""
-          },
-          {
-               "title":"3メタデータ LOD 画像検出hogehoge１１",
-               "author":["hogehoge", "松村 将兵"],
-               "theme":["メタデータ", "LOD", "画像検出"],
-               "date":"2016",
-               "society":"人工知能学会",
-               "comment":"テスト",
-               "link":""
           }
      ]
 }
