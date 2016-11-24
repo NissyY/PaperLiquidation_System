@@ -182,17 +182,9 @@ function searchPaperData(themes, target, len, papers){
     return res;
 }
 
-// function searchPapers(indexes, papers){
-//     var tmp = [];
-//     for(var j = 0; j < indexes.length; j++){
-//         tmp.push(papers[indexes[j]]);
-//     }
-//     return tmp;
-// }
-
 function outputDataOfTheme(authorDataOfTheme){
+    // console.log(authorDataOfTheme)
     authorSizeDescendingSort(authorDataOfTheme);
-    
     d3.select('#themeInformationArea table tbody').selectAll('tr')
         .data(authorDataOfTheme)
         .enter()
@@ -212,15 +204,36 @@ function outputDataOfTheme(authorDataOfTheme){
 }
 
 function outputDataOfPaper(papers){
-    d3.select('#paperInformationArea').selectAll('p')
+    // console.log(papers)
+    var title = [];
+    for(var i = 0; i < papers.length; i++){
+        title.push(papers[i].title);
+    }
+    d3.select('#paperInformationArea table tbody').selectAll('tr')
         .data(papers)
         .enter()
-        .append('p')
-        .text(function(d, i){
-            return d.title;
+        .append('tr')
+        .selectAll('td')
+        .data(function(row){
+            return d3.entries(row)
+        })
+        .enter()
+        .append('td')
+        .text(function(d){
+            var res = [];
+            if(d.key == 'title'){
+                res.push(d.value)
+            }
+            return res;
         })
         .on('click', function(d, i){
-            console.log(d);
+            var res;
+            for(var i = 0; i < papers.length; i++){
+                if(d.value == papers[i].title){
+                    res = papers[i];
+                }
+            }
+            console.log(res)
         })
 }
 
@@ -228,8 +241,8 @@ function removeData(){
     d3.select('#themeInformationArea table tbody')
         .selectAll('tr')
         .remove()
-    d3.select('#paperInformationArea')
-        .selectAll('p')
+    d3.select('#paperInformationArea table tbody')
+        .selectAll('tr')
         .remove()
 }
 

@@ -60,7 +60,7 @@ function VennDiagram(themes, papers) {
             addNewVenn(tags, singleSetsNum);
             addNewOverlapTagsToVenn(tags, spanLength, singleSetsNum);
         }
-        
+        console.log(themes);
         addNewPaperDataSet(papers,authors, tags);
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
         div.datum(themes).call(chart);
@@ -223,7 +223,7 @@ function VennDiagram(themes, papers) {
                 .css('left', event.pageX  + 'px')
                 .css('top', event.pageY + 'px');
 
-            $('[name="label"]').text(d.size + "users" + " " + d.sets);
+            $('[name="label"]').text(d.size + "papers" +",　" + getThemeName(d));
 
             $('#tooltip').removeClass('hidden');
         })
@@ -245,5 +245,16 @@ function VennDiagram(themes, papers) {
             // console.log(d)
             displayMetadata(themes, d, papers);
         });
+        function getThemeName(d){
+            var res = [];
+            for(var i = 0; i < d.sets.length; i++){
+                for(var j = 0; j < themes.length; j++){
+                    if(d.sets[i] == themes[j].sets){
+                        res.push(themes[j].label);
+                    }
+                }
+            }
+            return res;
+        }
     }
 }
