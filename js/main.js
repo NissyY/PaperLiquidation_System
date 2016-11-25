@@ -28,12 +28,12 @@ $(function() {
 			.css('margin-bottom', '10px');
 
     $('#toggleForm').click(function(){
-        $('#form-div').toggle();
+        // $('#form-div').toggle();
         clearValue();
     });
 
     $('#exitBtn').click(function(){
-        $("#form-div").toggle();
+        // $("#form-div").toggle();
         clearValue();
     });
 
@@ -41,6 +41,8 @@ $(function() {
         $("#form-div").each(function(){
             $(this).find("input#title").val('');
             $(this).find("input#author").val('');
+            $(this).find("input#society").val('');
+            $(this).find("input#date").val('');
             $(this).find("textarea#comment").val('');
         	$(this).find("div.tagify-container > span").remove();
         });

@@ -41,11 +41,11 @@ form#btnForm{
 	padding-right:35px;
 	padding-top:30px;
 	padding-bottom:15px;
-	width: 369px;
+	width: 450px;
 	float: left;
-	left: 50%;
+	left: 110%;
 	position: absolute;
-  	margin-top:30px;
+  	/*margin-top:30px;*/
 	margin-left: -260px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
@@ -167,4 +167,7 @@ input:focus, textarea:focus {
 		padding-left: 3%;
 		padding-right: 3%;
 	}
+}
+.tagify-container{
+	width: 380px;
 }

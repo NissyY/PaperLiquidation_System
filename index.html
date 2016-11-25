@@ -23,9 +23,14 @@
 				<div class="panel-heading">
 					D3.js
 				</div>
-				<button type="button" id="toggleForm" class="btn btn-default col-xs-offset-11">
+				<!-- 初期addフォーム出現 -->
+<!-- 				<button type="button" id="toggleForm" class="btn btn-default col-xs-offset-11">
+			        <span class="glyphicon glyphicon-plus">
+			    </button> -->
+				<button type="button" class="btn btn-default col-xs-offset-11" data-toggle="modal" data-target="#myModal">
 			        <span class="glyphicon glyphicon-plus">
 			    </button>
+
 				<div id="venn" class="center-block">
 				    <div id="tooltip" class="hidden">
 						<p name="label"></p>
@@ -72,6 +77,10 @@
 							</tbody>
 						</table>
 					</div>
+
+					<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+			        <div class="modal-content">
 					<div id="form-div">
 			    		<form class="form" id="addPaperInformation">  
 					    	<div class="inoutPaperTitle">
@@ -83,10 +92,10 @@
 					    	<div class="inputPaperTheme">
 					        	<textarea id="tagme" name="tags" type="text" class="validate[required,custom[tags]] feedback-input" placeholder="Theme"></textarea>
 					    	</div>
-					    	<div class="inputPaperAuthor">
+					    	<div class="inputPaperDate">
 					        	<input id="date" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Year/Month" />
 					    	</div>
-					    	<div class="inputPaperAuthor">
+					    	<div class="inputPaperSociety">
 					        	<input id="society" name="author" type="text" class="validate[required,custom[email]] feedback-input" placeholder="Society" />
 					    	</div>
 							<div class="inputComment">
@@ -99,16 +108,19 @@
 									<div class="ease"></div>
 								</div>
 								<div id="exitBtn" class="submit col-xs-8 col-sm-6">
-					    			<input type="button" value="EXIT" id="button-blue"/>
+					    			<input type="button" value="EXIT" id="button-blue" data-dismiss="modal"/>
 									<div class="ease"></div>
 								</div>
 							</div>
 						</form>
 					</div>
+					</div>
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
+		
 		<script src="js/read.js"></script>
 		<script src="js/helper.js"></script>
 		<script src="js/venndiagram.js"></script>
