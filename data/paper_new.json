@@ -4,10 +4,10 @@
                "title":"LOD 多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー",
                "author":["小平 優衣", "鈴木 啓史", "三原 徹也", "永森 光晴", "杉本 重雄"],
                "theme":["LOD"],
-               "date":"2013",
+               "date":"2013hoge",
                "society":"情報処理学会研究報告",
                "comment":"オントロジーは使えそう",
-               "link":"/User/Yuya/Desktop/ComicEngineering/LOD/多様なマンガメタデータのLinked Open Data化を支援するためのオントロジー.pdf"
+               "link":"https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&page_id=13&block_id=8&item_id=98115&item_no=1"
           },
           {
                "title":"LOD Linked Open Dataを利用したマンガへのアクセス支援 –メタデータによるマンガ情報の可視化– ",
@@ -22,7 +22,7 @@
                "title":"表現技法 マンガにおける表現技法の進化 –何がマンガを文芸に成長させたのか– ",
                "author":["高月 義照"],
                "theme":["コミックの表現技法の利用"],
-               "date":"",
+               "date":"2060",
                "society":"",
                "comment":"",
                "link":""
@@ -31,16 +31,16 @@
                "title":"表現技法 マンガ表現を利用したコンテキストアウェアアプリケーション",
                "author":["角 康之", "松村 耕平"],
                "theme":["コミックの表現技法の利用"],
-               "date":"",
+               "date":"2010",
                "society":"",
                "comment":"",
                "link":""
           },
           {
-               "title":"表現技法 マンガ表現を利用したコンテキストアウェアアプリケーション",
+               "title":"画像検出 マンガ表現を利用したコンテキストアウェアアプリケーション",
                "author":["角 康之", "松村 耕平"],
                "theme":["画像検出"],
-               "date":"",
+               "date":"2000",
                "society":"",
                "comment":"",
                "link":""
