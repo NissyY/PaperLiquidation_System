@@ -102,9 +102,10 @@ function displayMetadata(themes, theme, papers){
         }
     }
     var authorDataOfTheme = authorData(author);
+    var paperDataOfTheme = paperData(papers, paperDatas);
     removeData();
     outputDataOfTheme(authorDataOfTheme);
-    outputDataOfPaper(paperDatas);
+    outputDataOfPaper(paperDataOfTheme);
 }
 
 function getIndexDataHasMultipleTheme(theme, themes){
@@ -183,8 +184,8 @@ function searchPaperData(themes, target, len, papers){
 }
 
 function outputDataOfTheme(authorDataOfTheme){
-    // console.log(authorDataOfTheme)
     authorSizeDescendingSort(authorDataOfTheme);
+
     d3.select('#themeInformationArea table tbody').selectAll('tr')
         .data(authorDataOfTheme)
         .enter()
@@ -196,6 +197,7 @@ function outputDataOfTheme(authorDataOfTheme){
         .enter()
         .append('td')
         .text(function(d){
+            // console.log(d)
             return d.value;
         })
         .on('click', function(d, i){
@@ -203,14 +205,11 @@ function outputDataOfTheme(authorDataOfTheme){
         })
 }
 
-function outputDataOfPaper(papers){
-    // console.log(papers)
-    var title = [];
-    for(var i = 0; i < papers.length; i++){
-        title.push(papers[i].title);
-    }
+function outputDataOfPaper(paperDataOfTheme){
+    paperDateDescendingSort(paperDataOfTheme);
+
     d3.select('#paperInformationArea table tbody').selectAll('tr')
-        .data(papers)
+        .data(paperDataOfTheme)
         .enter()
         .append('tr')
         .selectAll('td')
@@ -220,20 +219,11 @@ function outputDataOfPaper(papers){
         .enter()
         .append('td')
         .text(function(d){
-            var res = [];
-            if(d.key == 'title'){
-                res.push(d.value)
-            }
-            return res;
+            // console.log(d)
+            return d.value;
         })
         .on('click', function(d, i){
-            var res;
-            for(var i = 0; i < papers.length; i++){
-                if(d.value == papers[i].title){
-                    res = papers[i];
-                }
-            }
-            console.log(res)
+            console.log(d);
         })
 }
 
@@ -250,6 +240,29 @@ function authorSizeDescendingSort(papersData){
     papersData.sort(function(a, b) {
         return (a.size > b.size) ? -1 : 1;
     });
+}
+
+function paperDateDescendingSort(papersData){
+    papersData.sort(function(a, b) {
+        return (a.date > b.date) ? -1 : 1;
+    });
+}
+
+function paperData(papers, paper){
+    var tmp = [];
+    console.log(paper)
+    for(var i = 0; i < paper.length; i++){
+        for(var j = 0; j < papers.length; j++){
+            if(paper[i].title == papers[j].title){
+                tmp.push({
+                    'date' : papers[j].date,
+                    'title' : papers[j].title
+                });
+            }
+        }
+    }
+    console.log(tmp)
+    return tmp;
 }
 
 //著者情報の整理

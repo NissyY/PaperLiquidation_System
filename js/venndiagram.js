@@ -210,6 +210,18 @@ function VennDiagram(themes, papers) {
         return count;
     }
 
+    function getThemeName(d){
+        var res = [];
+        for(var i = 0; i < d.sets.length; i++){
+            for(var j = 0; j < themes.length; j++){
+                if(d.sets[i] == themes[j].sets){
+                    res.push(themes[j].label);
+                }
+            }
+        }
+        return res;
+    }
+
     function tooltipUpdate(theme, paper){
         div.selectAll("g")
         .on("mouseover", function(d, i) {
@@ -245,16 +257,5 @@ function VennDiagram(themes, papers) {
             // console.log(d)
             displayMetadata(themes, d, papers);
         });
-        function getThemeName(d){
-            var res = [];
-            for(var i = 0; i < d.sets.length; i++){
-                for(var j = 0; j < themes.length; j++){
-                    if(d.sets[i] == themes[j].sets){
-                        res.push(themes[j].label);
-                    }
-                }
-            }
-            return res;
-        }
     }
 }
