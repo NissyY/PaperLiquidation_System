@@ -42,7 +42,7 @@ function addNewPaperDataSet(papers,authorsName, tags){
     papers.push({
         "title":$("#title").val(),
         "author":(authorsName),
-        "theme":(tags),//TODO: tagsのままだとオブジェクトとして格納されるからなんとかする
+        "theme":(tags),
         "date":$("#date").val(),
         "society":$("#society").val(),
         "comment":$("#comment").val(),
@@ -102,10 +102,9 @@ function displayMetadata(themes, theme, papers){
         }
     }
     var authorDataOfTheme = authorData(author);
-    var paperDataOfTheme = paperData(papers, paperDatas);
     removeData();
     outputDataOfTheme(authorDataOfTheme);
-    outputDataOfPaper(paperDataOfTheme);
+    outputDataOfPaper(papers, paperDatas);
 }
 
 function getIndexDataHasMultipleTheme(theme, themes){
@@ -205,8 +204,8 @@ function outputDataOfTheme(authorDataOfTheme){
         })
 }
 
-function outputDataOfPaper(paperDataOfTheme){
-    paperDateDescendingSort(paperDataOfTheme);
+function outputDataOfPaper(papers, paperDatas){
+    var paperDataOfTheme = paperData(papers, paperDatas);
 
     d3.select('#paperInformationArea table tbody').selectAll('tr')
         .data(paperDataOfTheme)
@@ -218,13 +217,29 @@ function outputDataOfPaper(paperDataOfTheme){
         })
         .enter()
         .append('td')
+        .attr({
+            'role' : 'button',
+            'data-toggle' : 'popover',
+            'data-triger' : 'focus',
+            'data-placement' : 'top',
+            'title' : 'Comment',
+        })
         .text(function(d){
-            // console.log(d)
             return d.value;
         })
         .on('click', function(d, i){
-            console.log(d);
+            for(var i = 0; i < papers.length; i++){
+                if(d.value == papers[i].title){
+                    showComment = papers[i].comment;
+                }
+            }
+            $('td').attr({
+                'data-content' : showComment
+            })
         })
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
 }
 
 function removeData(){
@@ -250,7 +265,6 @@ function paperDateDescendingSort(papersData){
 
 function paperData(papers, paper){
     var tmp = [];
-    console.log(paper)
     for(var i = 0; i < paper.length; i++){
         for(var j = 0; j < papers.length; j++){
             if(paper[i].title == papers[j].title){
@@ -261,7 +275,6 @@ function paperData(papers, paper){
             }
         }
     }
-    console.log(tmp)
     return tmp;
 }
 

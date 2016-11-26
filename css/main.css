@@ -5,6 +5,12 @@ form#btnForm{
 	margin-top: 3px;
 	margin-left: 3px;
 }
+#paperDetailArea{
+	margin-top: 10px;
+}
+#vennArea{
+	margin-top: 10px;	
+}
 
 #detailArea{
 	overflow: auto;

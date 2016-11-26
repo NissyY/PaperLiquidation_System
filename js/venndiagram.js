@@ -236,7 +236,6 @@ function VennDiagram(themes, papers) {
                 .css('top', event.pageY + 'px');
 
             $('[name="label"]').text(d.size + "papers" +",　" + getThemeName(d));
-
             $('#tooltip').removeClass('hidden');
         })
         .on("mousemove", function() {
