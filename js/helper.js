@@ -207,16 +207,10 @@ function outputDataOfTheme(authorDataOfTheme){
 function outputDataOfPaper(papers, paperDatas){
     var paperDataOfTheme = paperData(papers, paperDatas);
 
-    d3.select('#paperInformationArea table tbody').selectAll('tr')
+ d3.select('#paperInformationArea table tbody').selectAll('tr')
         .data(paperDataOfTheme)
         .enter()
         .append('tr')
-        .selectAll('td')
-        .data(function(row){
-            return d3.entries(row)
-        })
-        .enter()
-        .append('td')
         .attr({
             'role' : 'button',
             'data-toggle' : 'popover',
@@ -224,6 +218,20 @@ function outputDataOfPaper(papers, paperDatas){
             'data-placement' : 'top',
             'title' : 'Comment',
         })
+        .selectAll('td')
+        .data(function(row){
+            return d3.entries(row)
+        })
+        .enter()
+        .append('td')
+        // .attr({
+        //     'role' : 'button',
+        //     'data-toggle' : 'popover',
+        //     'data-triger' : 'focus',
+        //     'data-placement' : 'top',
+        //     'title' : 'Comment',
+        // })
+        // .append('p')
         .text(function(d){
             return d.value;
         })
@@ -233,7 +241,7 @@ function outputDataOfPaper(papers, paperDatas){
                     showComment = papers[i].comment;
                 }
             }
-            $('td').attr({
+            $('tr').attr({
                 'data-content' : showComment
             })
         })
