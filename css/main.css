@@ -177,3 +177,12 @@ input:focus, textarea:focus {
 .tagify-container{
 	width: 380px;
 }
+
+.popover{
+	max-width: 600px;
+}
+
+.popover-title{
+	background-color: #337ab7;
+	color: white;
+}

@@ -103,7 +103,7 @@ function displayMetadata(themes, theme, papers){
     }
     var authorDataOfTheme = authorData(author);
     removeData();
-    outputDataOfTheme(authorDataOfTheme);
+    outputDataOfTheme(papers, authorDataOfTheme);
     outputDataOfPaper(papers, paperDatas);
 }
 
@@ -182,13 +182,21 @@ function searchPaperData(themes, target, len, papers){
     return res;
 }
 
-function outputDataOfTheme(authorDataOfTheme){
+function outputDataOfTheme(papers, authorDataOfTheme){
     authorSizeDescendingSort(authorDataOfTheme);
 
     d3.select('#themeInformationArea table tbody').selectAll('tr')
         .data(authorDataOfTheme)
         .enter()
         .append('tr')
+        .attr({
+            'class' : 'bs-docs-popover',
+            'role' : 'button',
+            'data-toggle' : 'popover',
+            'data-triger' : 'focus',
+            'data-placement' : 'top',
+            'title' : 'Other Theme',
+        })
         .selectAll('td')
         .data(function(row){
             return d3.entries(row)
@@ -200,8 +208,37 @@ function outputDataOfTheme(authorDataOfTheme){
             return d.value;
         })
         .on('click', function(d, i){
-            console.log(d);
+            var themeBySelectAuthor = [];
+            var result;
+            for(var i = 0; i < papers.length; i++){
+                for(var j = 0; j < papers[i].author.length; j++){
+                    if(d.value == papers[i].author[j]){
+                        for(var k = 0; k < papers[i].theme.length; k++){
+                            themeBySelectAuthor.push(papers[i].theme[k]);
+                        }
+                    }
+                }
+            }
+            sameWordRemove(themeBySelectAuthor);
+            result = sameWordRemove(themeBySelectAuthor).join(', ')
+
+            $('tr').attr({
+                'data-content' : result
+            })
         })
+}
+
+function sameWordRemove(themes){
+    for(var i = 0; i < themes.length; i++){
+        for(var j = 0; j < themes.length; j++){
+            if(i == j){continue;}
+            if(themes[i] == themes[j]){
+                themes.splice(j, 1);
+                j--;
+            }
+        }
+    }
+    return themes;
 }
 
 function outputDataOfPaper(papers, paperDatas){
@@ -214,7 +251,7 @@ function outputDataOfPaper(papers, paperDatas){
         .attr({
             'role' : 'button',
             'data-toggle' : 'popover',
-            'data-triger' : 'focus',
+            'data-triger' : 'hover',
             'data-placement' : 'top',
             'title' : 'Comment',
         })
@@ -224,18 +261,11 @@ function outputDataOfPaper(papers, paperDatas){
         })
         .enter()
         .append('td')
-        // .attr({
-        //     'role' : 'button',
-        //     'data-toggle' : 'popover',
-        //     'data-triger' : 'focus',
-        //     'data-placement' : 'top',
-        //     'title' : 'Comment',
-        // })
-        // .append('p')
         .text(function(d){
             return d.value;
         })
         .on('click', function(d, i){
+            var showComment;
             for(var i = 0; i < papers.length; i++){
                 if(d.value == papers[i].title){
                     showComment = papers[i].comment;
