@@ -15,7 +15,6 @@ function NotIsIdentifier(tags, len) {
     return false;
 }
 
-
 function checkDataOfTitleOverlap(papers, title, len){
     for(var i = 0; i < len; i ++){
         if (title == papers[i].title) {
@@ -58,19 +57,23 @@ function displayMetadata(themes, theme, papers){
     var themesLabel = [];
 
     themesLabel = getIndexDataHasMultipleTheme(theme, themes);
-
     if(theme.sets.length == 1){
         for(var i = 0; i < papers.length; i++){
-            for(var j = 0; j < themesLabel.length; j++){
-                if(papers[i].theme[0] == themesLabel[j]){
-                    paperDatas.push(papers[i]);
-                    author.push(papers[i].author);
+            for(var j = 0; j < papers[i].theme.length; j++){
+                for(var k = 0; k < themesLabel.length; k++){
+                    if(papers[i].theme[j] == themesLabel[k]){
+                        paperDatas.push(papers[i]);
+                        author.push(papers[i].author);
+                    }
                 }
             }
         }
     }else if(theme.sets.length == 2){
+        //papers全データ確認
         for(var i = 0; i < papers.length; i++){
+            //papersのtemeが複数ある場合
             if(papers[i].theme.length > 1){
+                //選択したテーマの数まで回す
                 for(var j = 0; j < themesLabel.length; j++){
                     for(var k = 0; k < themesLabel.length; k++){
                         if(papers[i].theme[0] == themesLabel[j] && papers[i].theme[1] == themesLabel[k]){
@@ -243,6 +246,7 @@ function sameWordRemove(themes){
 
 function outputDataOfPaper(papers, paperDatas){
     var paperDataOfTheme = paperData(papers, paperDatas);
+    paperDateDescendingSort(paperDataOfTheme);
 
  d3.select('#paperInformationArea table tbody').selectAll('tr')
         .data(paperDataOfTheme)
@@ -253,7 +257,7 @@ function outputDataOfPaper(papers, paperDatas){
             'data-toggle' : 'popover',
             'data-triger' : 'hover',
             'data-placement' : 'top',
-            'title' : 'Comment',
+            'title' : 'Comment & Link',
         })
         .selectAll('td')
         .data(function(row){
@@ -266,6 +270,13 @@ function outputDataOfPaper(papers, paperDatas){
         })
         .on('click', function(d, i){
             var showComment;
+            var link;
+            for(var i = 0; i < papers.length; i++){
+                if(d.value == papers[i].title){
+                    link = papers[i].link
+                }
+            }
+            console.log(d)
             for(var i = 0; i < papers.length; i++){
                 if(d.value == papers[i].title){
                     showComment = papers[i].comment;
@@ -273,7 +284,7 @@ function outputDataOfPaper(papers, paperDatas){
             }
             $('tr').attr({
                 'data-content' : showComment
-            })
+                })
         })
         $(function () {
             $('[data-toggle="popover"]').popover();
