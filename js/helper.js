@@ -282,6 +282,11 @@ function outputDataOfPaper(papers, paperDatas){
                     showComment = papers[i].comment;
                 }
             }
+
+            // $('.popover-content').attr({
+            //     'class' : 'glyphicon glyphicon-file'
+            // })
+            
             $('tr').attr({
                 'data-content' : showComment
                 })
