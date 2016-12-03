@@ -70,9 +70,10 @@ function displayMetadata(themes, theme, papers){
         }
     }else if(theme.sets.length == 2){
         //papers全データ確認
+        console.log('ok')
         for(var i = 0; i < papers.length; i++){
             //papersのtemeが複数ある場合
-            if(papers[i].theme.length > 1){
+            if(papers[i].theme.length == 2){
                 //選択したテーマの数まで回す
                 for(var j = 0; j < themesLabel.length; j++){
                     for(var k = 0; k < themesLabel.length; k++){
@@ -87,7 +88,7 @@ function displayMetadata(themes, theme, papers){
     }else{
         var b = 0;
         for(var i = 0; i < papers.length; i++){
-            if(papers[i].theme.length > 1){
+            if(papers[i].theme.length > 2){
                 for(var j = 0; j < themesLabel.length; j++){
                     for(var k = 0; k < themesLabel.length; k++){
                         for(var a = 0; a < 2; a++){
@@ -104,6 +105,7 @@ function displayMetadata(themes, theme, papers){
             }
         }
     }
+    console.log(paperDatas)
     var authorDataOfTheme = authorData(author);
     removeData();
     outputDataOfTheme(papers, authorDataOfTheme);
@@ -248,7 +250,7 @@ function outputDataOfPaper(papers, paperDatas){
     var paperDataOfTheme = paperData(papers, paperDatas);
     paperDateDescendingSort(paperDataOfTheme);
 
- d3.select('#paperInformationArea table tbody').selectAll('tr')
+    d3.select('#paperInformationArea table tbody').selectAll('tr')
         .data(paperDataOfTheme)
         .enter()
         .append('tr')
@@ -266,7 +268,7 @@ function outputDataOfPaper(papers, paperDatas){
         .enter()
         .append('td')
         .text(function(d){
-            return d.value;
+            return (d.value);
         })
         .on('click', function(d, i){
             var showComment;
@@ -276,21 +278,18 @@ function outputDataOfPaper(papers, paperDatas){
                     link = papers[i].link
                 }
             }
-            console.log(d)
+            // console.log(d)
             for(var i = 0; i < papers.length; i++){
                 if(d.value == papers[i].title){
                     showComment = papers[i].comment;
                 }
             }
-
-            // $('.popover-content').attr({
-            //     'class' : 'glyphicon glyphicon-file'
-            // })
             
             $('tr').attr({
-                'data-content' : showComment
-                })
+                'data-content' : showComment,
+            })
         })
+
         $(function () {
             $('[data-toggle="popover"]').popover();
         });

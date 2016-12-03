@@ -18,7 +18,7 @@ function VennDiagram(themes, papers) {
         .style("stroke", "#fff")
         .style("stroke-width", 3)
 
-    tooltipUpdate(themes);
+    tooltipUpdate();
 
     $('#addPaper').click(function() {
         removeSpanOfTag();
@@ -232,7 +232,7 @@ function VennDiagram(themes, papers) {
         return res;
     }
 
-    function tooltipUpdate(theme, paper){
+    function tooltipUpdate(){
         div.selectAll("g")
         .on("mouseover", function(d, i) {
             venn.sortAreas(div, d);
@@ -245,7 +245,8 @@ function VennDiagram(themes, papers) {
                 .css('left', event.pageX  + 'px')
                 .css('top', event.pageY + 'px');
 
-            $('[name="label"]').text("Paper : " + d.size + "本 ,　Theme : " + getThemeName(d));
+            $('[name="label"]').text("Paper : " + paperCountOfTheme(d.sets) + "本 ,　Theme : " + getThemeName(d));
+            // $('[name="label"]').text("Paper : "  + "1本 ,　Theme : " + getThemeName(d));
             
             $('#tooltip').removeClass('hidden');
         })
@@ -265,6 +266,67 @@ function VennDiagram(themes, papers) {
         })
         .on("click",function(d, i) {
             displayMetadata(themes, d, papers);
+            paperCountOfTheme(d.sets)
         });
+    }
+
+    function paperCountOfTheme(sets){
+        var paperTheme = [];
+        for(var i = 0; i < sets.length; i++){
+            for(var j = 0; j < themes.length; j++){
+                if(sets[i] == themes[j].sets){
+                    paperTheme.push(themes[j].label);
+                }
+            }
+        }
+
+        var res = 0;
+        var count = 0;
+
+        for(var i = 0; i < papers.length; i++){
+            for(var j = 0; j < papers[i].theme.length; j++){
+                if(paperTheme.length == 1){
+                    if(paperTheme[0] == papers[i].theme[j]){
+                        res++;
+                    }
+                }
+                else if(paperTheme.length == 2){
+                    if(papers[i].theme.length == 2){
+                        if(paperTheme[0] == papers[i].theme[j]){
+                            count++;
+                            for(var k = 0; k < 2; k++){
+                                if(paperTheme[1] == papers[i].theme[k]){
+                                    count++;
+                                    if(count == 2){
+                                        res++;
+                                    }   
+                                }
+                            }
+                        }
+                    }
+                }
+                else{
+                    if(papers[i].theme.length == 3){
+                        if(paperTheme[0] == papers[i].theme[j]){
+                            count++;
+                            for(var k = 0; k < 3; k++){    
+                                if(paperTheme[1] == papers[i].theme[k]){
+                                    count++;
+                                    for(var l = 0; l < 3; l++){
+                                        if(paperTheme[2] == papers[i].theme[l]){
+                                            count++;
+                                            if(count == 3){
+                                                res++;
+                                            }   
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return res;
     }
 }
