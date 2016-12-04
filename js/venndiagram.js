@@ -1,4 +1,5 @@
 function VennDiagram(themes, papers) {
+    var flg = 0;
     var chart = venn.VennDiagram()
                      .width(500)
                      .height(566);
@@ -45,10 +46,10 @@ function VennDiagram(themes, papers) {
 
         var test = checkDataOfTitleOverlap(papers, title, papers.length);
 //最後に復活　確認の際面倒だから
-        // if(checkDataOfTitleOverlap(papers, title, papers.length)){
-        //     alert('このタイトルは既に登録されています');
-        //     return;
-        // }
+        if(checkDataOfTitleOverlap(papers, title, papers.length)){
+            alert('このタイトルは既に登録されています');
+            return;
+        }
 
         if(NotIsIdentifier(tags, spanLength)){
             alert('同じタグが設定されています');
@@ -63,6 +64,7 @@ function VennDiagram(themes, papers) {
 
         addNewPaperDataSet(papers,authors, tags);
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
+        removeFirstTheme();
         div.datum(themes).call(chart);
         tooltipUpdate(themes, papers);
 
@@ -245,8 +247,9 @@ function VennDiagram(themes, papers) {
                 .css('left', event.pageX  + 'px')
                 .css('top', event.pageY + 'px');
 
-            $('[name="label"]').text("Paper : " + paperCountOfTheme(d.sets) + "本 ,　Theme : " + getThemeName(d));
-            // $('[name="label"]').text("Paper : "  + "1本 ,　Theme : " + getThemeName(d));
+            var num = count(themes, d, papers);
+            // $('[name="label"]').text("Paper : " + paperCountOfTheme(d.sets) + "本 ,　Theme : " + getThemeName(d));
+            $('[name="label"]').text("Paper : " + num + "本 ,　Theme : " + getThemeName(d));
             
             $('#tooltip').removeClass('hidden');
         })
@@ -268,6 +271,59 @@ function VennDiagram(themes, papers) {
             displayMetadata(themes, d, papers);
             paperCountOfTheme(d.sets)
         });
+    }
+
+    function count(themes, theme, papers){
+        var paperDatas = [];
+        var themesLabel = [];
+
+        themesLabel = getIndexDataHasMultipleTheme(theme, themes);
+        if(theme.sets.length == 1){
+            for(var i = 0; i < papers.length; i++){
+                for(var j = 0; j < papers[i].theme.length; j++){
+                    for(var k = 0; k < themesLabel.length; k++){
+                        if(papers[i].theme[j] == themesLabel[k]){
+                            paperDatas.push(papers[i]);
+                        }
+                    }
+                }
+            }
+        }else if(theme.sets.length == 2){
+            //papers全データ確認
+            for(var i = 0; i < papers.length; i++){
+                //papersのtemeが複数ある場合
+                if(papers[i].theme.length == 2){
+                    //選択したテーマの数まで回す
+                    for(var j = 0; j < themesLabel.length; j++){
+                        for(var k = 0; k < themesLabel.length; k++){
+                            if(papers[i].theme[0] == themesLabel[j] && papers[i].theme[1] == themesLabel[k]){
+                                paperDatas.push(papers[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            var b = 0;
+            for(var i = 0; i < papers.length; i++){
+                if(papers[i].theme.length > 2){
+                    for(var j = 0; j < themesLabel.length; j++){
+                        for(var k = 0; k < themesLabel.length; k++){
+                            for(var a = 0; a < 2; a++){
+                                if(papers[i].theme[a] == themesLabel[j]){
+                                    b++;
+                                    if(b == 3){
+                                        paperDatas.push(papers[i]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var res = paperDatas.length;
+        return res;
     }
 
     function paperCountOfTheme(sets){
@@ -328,5 +384,14 @@ function VennDiagram(themes, papers) {
             }
         }
         return res;
+    }
+    function removeFirstTheme(){
+        console.log(flg);
+        if(flg == 1){
+            return;
+        }
+        console.log(themes)
+        themes.splice(0, 1);
+        flg++;
     }
 }

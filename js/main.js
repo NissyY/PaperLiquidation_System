@@ -5,7 +5,8 @@ $(function() {
 	function main() {
 		// 読み込みたい外部ファイルを記述
 		var loadFiles = [
-			readJsonFile("theme_new"),
+			// readJsonFile("theme_new"),
+			readJsonFile("theme"),
 			readJsonFile("paper_new"),
 		]
 

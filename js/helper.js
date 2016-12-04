@@ -52,7 +52,7 @@ function addNewPaperDataSet(papers,authorsName, tags){
 //クリックしたテーマに関するデータを表示する
 function displayMetadata(themes, theme, papers){
     var author = [];
-    var index = [];
+    // var index = [];
     var paperDatas = [];
     var themesLabel = [];
 
@@ -70,7 +70,6 @@ function displayMetadata(themes, theme, papers){
         }
     }else if(theme.sets.length == 2){
         //papers全データ確認
-        console.log('ok')
         for(var i = 0; i < papers.length; i++){
             //papersのtemeが複数ある場合
             if(papers[i].theme.length == 2){
@@ -211,7 +210,6 @@ function outputDataOfTheme(papers, authorDataOfTheme){
             return d.value;
         })
         .on('click', function(d, i){
-            console.log(d)
             var themeBySelectAuthor = [];
             var result;
             for(var i = 0; i < papers.length; i++){
@@ -270,7 +268,6 @@ function outputDataOfPaper(papers, paperDatas){
             return (d.value);
         })
         .on('click', function(d, i){
-            console.log(d)
             var showComment;
             var link;
             for(var i = 0; i < papers.length; i++){
