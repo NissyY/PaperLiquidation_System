@@ -7,7 +7,8 @@ $(function() {
 		var loadFiles = [
 			// readJsonFile("theme_new"),
 			readJsonFile("theme"),
-			readJsonFile("paper_new"),
+			// readJsonFile("paper_new"),
+			readJsonFile("paper"),
 		]
 
 		Promise.all(loadFiles).then(function(files) {

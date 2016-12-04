@@ -256,7 +256,7 @@ function outputDataOfPaper(papers, paperDatas){
             'data-toggle' : 'popover',
             'data-triger' : 'hover',
             'data-placement' : 'top',
-            'title' : 'Society & Comment',
+            'title' : 'Society : Comment',
         })
         .selectAll('td')
         .data(function(row){
