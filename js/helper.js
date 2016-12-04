@@ -105,7 +105,6 @@ function displayMetadata(themes, theme, papers){
             }
         }
     }
-    console.log(paperDatas)
     var authorDataOfTheme = authorData(author);
     removeData();
     outputDataOfTheme(papers, authorDataOfTheme);
@@ -209,10 +208,10 @@ function outputDataOfTheme(papers, authorDataOfTheme){
         .enter()
         .append('td')
         .text(function(d){
-            // console.log(d)
             return d.value;
         })
         .on('click', function(d, i){
+            console.log(d)
             var themeBySelectAuthor = [];
             var result;
             for(var i = 0; i < papers.length; i++){
@@ -259,7 +258,7 @@ function outputDataOfPaper(papers, paperDatas){
             'data-toggle' : 'popover',
             'data-triger' : 'hover',
             'data-placement' : 'top',
-            'title' : 'Comment & Link',
+            'title' : 'Society & Comment',
         })
         .selectAll('td')
         .data(function(row){
@@ -271,6 +270,7 @@ function outputDataOfPaper(papers, paperDatas){
             return (d.value);
         })
         .on('click', function(d, i){
+            console.log(d)
             var showComment;
             var link;
             for(var i = 0; i < papers.length; i++){
@@ -284,9 +284,16 @@ function outputDataOfPaper(papers, paperDatas){
                     showComment = papers[i].comment;
                 }
             }
+
+            var res;
+            for(var i = 0; i < papers.length; i++){
+                if(d.value == papers[i].title){
+                    res = papers[i].society;
+                }
+            }
             
             $('tr').attr({
-                'data-content' : showComment,
+                'data-content' : res + ' :  '+ showComment,
             })
         })
 
