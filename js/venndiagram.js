@@ -45,7 +45,7 @@ function VennDiagram(themes, papers) {
         }
 
         var test = checkDataOfTitleOverlap(papers, title, papers.length);
-//最後に復活　確認の際面倒だから
+
         if(checkDataOfTitleOverlap(papers, title, papers.length)){
             alert('このタイトルは既に登録されています');
             return;
@@ -64,7 +64,10 @@ function VennDiagram(themes, papers) {
 
         addNewPaperDataSet(papers,authors, tags);
         // これ呼べば更新される．(themesの中身に変更があった場合のみ)
+        
+// 実験用
         removeFirstTheme();
+        
         div.datum(themes).call(chart);
         tooltipUpdate(themes, papers);
 
@@ -385,12 +388,12 @@ function VennDiagram(themes, papers) {
         }
         return res;
     }
+
+    //実験用
     function removeFirstTheme(){
-        console.log(flg);
         if(flg == 1){
             return;
         }
-        console.log(themes)
         themes.splice(0, 1);
         flg++;
     }
